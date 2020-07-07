@@ -7,7 +7,7 @@
 
     <div>
       Title: <input type="text" v-model="newTitle"> <br>
-      Year: <input type="integer" v-model="newYear"> <br>
+      Year: <input type="text" v-model="newYear"> <br>
       Plot: <input type="text" v-model="newPlot"> <br>
       Director: <input type="text" v-model="newDirector"> <br>
       <button v-on:click="createMovie()">Create</button>
@@ -24,11 +24,11 @@
     <dialog id="movie-details">
       <form method="dialog">
         <h1>Movie Info</h1>
-        <!-- <ul>
+        <ul>
           <li v-for="error in updateErrors">{{ error }}</li>
-        </ul> -->
+        </ul>
         <p>Title: <input type="text" v-model="currentMovie.title"></p>
-        <p>Year: <input type="integer" v-model="currentMovie.year"></p>
+        <p>Year: <input type="text" v-model="currentMovie.year"></p>
         <p>Plot: <input type="text" v-model="currentMovie.plot"></p>
         <p>Director : <input type="text" v-model="currentMovie.director"></p>
         <button v-on:click="updateMovie(currentMovie)">Update</button>
@@ -53,7 +53,8 @@ export default {
     return {
       movies: [],
       createErrors: [],
-      // updateErrors: [],
+      updateErrors: [],
+      // errors: [],
       newTitle: "",
       newYear: "",
       newPlot: "",
@@ -74,8 +75,8 @@ export default {
     createMovie: function() {
       var params = {
         title: this.newTitle,
-        plot: this.newPlot,
         year: this.newYear,
+        plot: this.newPlot,
         director: this.newDirector
       };
       axios
@@ -97,8 +98,8 @@ export default {
     updateMovie: function(movie) {
       var params = {
         title: movie.title,
-        plot: movie.plot,
         year: movie.year,
+        plot: movie.plot,
         director: movie.director
       };
       axios
