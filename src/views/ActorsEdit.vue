@@ -25,10 +25,6 @@
         <label>Gender:</label>
         <input type="text" class="form-control" v-model="actor.gender" />
       </div>
-      <!-- <div class="form-group">
-        <label>Movie:</label>
-        <input type="integer" class="form-control" v-model="actor.movie_id" />
-      </div> -->
       <input type="submit" class="btn btn-primary" value="Update" />
     </form>
   </div>
@@ -42,11 +38,11 @@ export default {
   data: function() {
     return {
       errors: [],
-      actor: {},
+      actor: {}
     };
   },
   created: function() {
-    axios.get(`/api/actors/${this.$route.params.id}`).then((response) => {
+    axios.get(`/api/actors/${this.$route.params.id}`).then(response => {
       this.actor = response.data;
       console.log(this.actor);
     });
@@ -57,26 +53,26 @@ export default {
         title: this.actor.title,
         plot: this.actor.plot,
         year: this.actor.year,
-        director: this.actor.director,
+        director: this.actor.director
       };
       axios
         .patch(`/api/actors/${this.actor.id}`, params)
-        .then((response) => {
+        .then(response => {
           // redirect to actors show
           this.$router.push(`/actors/${response.data.id}`);
         })
-        .catch((error) => {
+        .catch(error => {
           this.errors = error.response.data.errors;
         });
     },
     destroyActor: function() {
       if (confirm("Are you sure you want to delete this actor?")) {
-        axios.delete(`/api/actors/${this.actor.id}`).then((response) => {
+        axios.delete(`/api/actors/${this.actor.id}`).then(response => {
           console.log("Successfully destroyed", response.data);
           this.$router.push("/actors");
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>

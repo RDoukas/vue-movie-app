@@ -13,6 +13,9 @@
       <div class="form-group">
         <label>Plot:</label>
         <input type="text" class="form-control" v-model="plot">
+        <small
+          class="text-danger"
+          v-if="plot.length > 10">Must be less than 200 characters</small>
       </div>
       <div class="form-group">
         <label>Director:</label>

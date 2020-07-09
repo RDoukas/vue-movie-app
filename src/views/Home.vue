@@ -13,30 +13,6 @@
       <button v-on:click="createMovie()">Create</button>
     </div>
 
-    <div v-for="movie in movies">
-      <h2>{{ movie.title }}</h2>
-      <p>Year: {{ movie.year }}</p>
-      <p>Plot: {{ movie.plot }}</p>
-      <p>Director: {{ movie.director }}</p>
-      <router-link v-bind:to="`/movies/${movie.id}`">More info</router-link>
-    </div>
-
-    <dialog id="movie-details">
-      <form method="dialog">
-        <h1>Movie Info</h1>
-        <ul>
-          <li v-for="error in updateErrors">{{ error }}</li>
-        </ul>
-        <p>Title: <input type="text" v-model="currentMovie.title" /></p>
-        <p>Year: <input type="text" v-model="currentMovie.year" /></p>
-        <p>Plot: <input type="text" v-model="currentMovie.plot" /></p>
-        <p>Director : <input type="text" v-model="currentMovie.director" /></p>
-        <button v-on:click="updateMovie(currentMovie)">Update</button>
-        <button v-on:click="destroyMovie(currentMovie)">Delete</button>
-        <button>Close</button>
-      </form>
-    </dialog>
-
     <h1>New Actor</h1>
     <ul>
       <li v-for="error in createErrors">{{ error }}</li>
@@ -51,21 +27,44 @@
       <button v-on:click="createActor()">Create</button>
     </div>
 
-    <div v-for="actor in actors">
+    <!-- <div v-for="movie in movies">
+      <h2>{{ movie.title }}</h2>
+      <p>Year: {{ movie.year }}</p>
+      <p>Plot: {{ movie.plot }}</p>
+      <p>Director: {{ movie.director }}</p>
+      <router-link v-bind:to="`/movies/${movie.id}`">More info</router-link>
+    </div> -->
+
+    <!-- <dialog id="movie-details">
+      <form method="dialog">
+        <h1>Movie Info</h1>
+        <ul>
+          <li v-for="error in updateErrors">{{ error }}</li>
+        </ul>
+        <p>Title: <input type="text" v-model="currentMovie.title" /></p>
+        <p>Year: <input type="text" v-model="currentMovie.year" /></p>
+        <p>Plot: <input type="text" v-model="currentMovie.plot" /></p>
+        <p>Director : <input type="text" v-model="currentMovie.director" /></p>
+        <button v-on:click="updateMovie(currentMovie)">Update</button>
+        <button v-on:click="destroyMovie(currentMovie)">Delete</button>
+        <button>Close</button>
+      </form>
+    </dialog> -->
+
+
+    <!-- <div v-for="actor in actors">
       <h2>{{ actor.first_name }} {{ actor.last_name }}</h2>
       <p>{{ actor.known_for }}</p>
       <router-link v-bind:to="`/actors/${movie.id}`">More info</router-link>
-    </div>
-
+    </div> -->
+<!-- 
     <dialog id="actor-details">
       <form method="dialog">
         <h1>Actor Info</h1>
         <ul>
           <li v-for="error in updateErrors">{{ error }}</li>
         </ul>
-        <p>
-          First Name: <input type="text" v-model="currentActor.first_name" />
-        </p>
+        <p>First Name: <input type="text" v-model="currentActor.first_name"/></p>
         <p>Last Name: <input type="text" v-model="currentActor.last_name" /></p>
         <p>Known For: <input type="text" v-model="currentActor.known_for" /></p>
         <p>Age: <input type="text" v-model="currentActor.age" /></p>
@@ -74,7 +73,7 @@
         <button v-on:click="destroyActor(currentActor)">Delete</button>
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog> -->
   </div>
 </template>
 
@@ -98,6 +97,12 @@ export default {
       newPlot: "",
       newDirector: "",
       currentMovie: {},
+      newFirstName: "",
+      newLastName: "",
+      newKnownFor: "",
+      newGender: "",
+      newAge: "",
+      currentActor: {}
     };
   },
   created: function() {
@@ -105,7 +110,7 @@ export default {
   },
   methods: {
     indexMovies: function() {
-      axios.get("/api/movies").then((response) => {
+      axios.get("/api/movies").then(response => {
         console.log("All Movies:", response.data);
         this.movies = response.data;
       });
@@ -115,15 +120,15 @@ export default {
         title: this.newTitle,
         year: this.newYear,
         plot: this.newPlot,
-        director: this.newDirector,
+        director: this.newDirector
       };
       axios
         .post("/api/movies", params)
-        .then((response) => {
+        .then(response => {
           console.log("Success", response.data);
           this.movies.push(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error.response.data.errors);
           this.createErrors = error.response.data.errors;
         });
@@ -138,24 +143,24 @@ export default {
         title: movie.title,
         year: movie.year,
         plot: movie.plot,
-        director: movie.director,
+        director: movie.director
       };
       axios
         .patch(`/api/movies/${movie.id}`, params)
-        .then((response) => {
+        .then(response => {
           console.log("Successfully Updated", response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error.response.data.errors);
         });
     },
     destroyMovie: function(movie) {
-      axios.delete(`/api/movies/${movie.id}`).then((response) => {
+      axios.delete(`/api/movies/${movie.id}`).then(response => {
         console.log("Successfully destroyed", response.data);
         var index = this.movies.indexOf(movie);
         this.movies.splice(index, 1);
       });
-    },
-  },
+    }
+  }
 };
 </script>

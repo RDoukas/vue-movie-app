@@ -16,24 +16,27 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link class="nav-link" to="/movies">All Movies</router-link>
           </li>
+       
           <li class="nav-item">
             <router-link class="nav-link" to="/actors">All Actors</router-link>
           </li>
-          <li class="nav-item">
+        
+          <li v-if="!isLoggedIn()" class="nav-item">
             <router-link class="nav-link" to="/signup">Signup</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="!isLoggedIn()" class="nav-item">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="isLoggedIn()" class="nav-item">
             <router-link class="nav-link" to="/logout">Logout</router-link>
           </li>
+
         </ul>
       </div>
     </nav>
@@ -45,4 +48,17 @@
   </div>
 </template>
 
-<style></style>
+<script>
+export default {
+  data: function() {
+    return {
+      flashMessage: ""
+    };
+  },
+  methods: {
+    isLoggedIn: function() {
+      return localStorage.getItem("jwt");
+    }
+  }
+};
+</script>

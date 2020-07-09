@@ -4,28 +4,24 @@
       <h1>New Actor</h1>
       <div class="form-group">
         <label>First Name:</label>
-        <input type="text" class="form-control" v-model="actor.first_name" />
+        <input type="text" class="form-control" v-model="firstName" />
       </div>
       <div class="form-group">
         <label>Last Name:</label>
-        <input type="text" class="form-control" v-model="actor.last_name" />
+        <input type="text" class="form-control" v-model="lastName" />
       </div>
       <div class="form-group">
         <label>Known For:</label>
-        <input type="text" class="form-control" v-model="actor.known_for" />
+        <input type="text" class="form-control" v-model="knownFor" />
       </div>
       <div class="form-group">
         <label>Age:</label>
-        <input type="text" class="form-control" v-model="actor.age" />
+        <input type="text" class="form-control" v-model="age" />
       </div>
       <div class="form-group">
         <label>Gender:</label>
-        <input type="text" class="form-control" v-model="actor.gender" />
+        <input type="text" class="form-control" v-model="gender" />
       </div>
-      <!-- <div class="form-group">
-        <label>Movie:</label>
-        <input type="text" class="form-control" v-model="actor.movie_id" />
-      </div> -->
       <input type="submit" class="btn btn-primary" value="Create" />
     </form>
   </div>
@@ -37,33 +33,33 @@ export default {
   data: function() {
     return {
       errors: [],
-      first_name: "",
-      last_name: "",
-      known_for: "",
+      firstName: "",
+      lastName: "",
+      knownFor: "",
       age: "",
-      gender: "",
+      gender: ""
     };
   },
   created: function() {},
   methods: {
     createActor: function() {
       var params = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        known_for: this.known_for,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        known_for: this.knownFor,
         age: this.age,
-        gender: this.gender,
+        gender: this.gender
       };
       axios
         .post("/api/actors", params)
-        .then((response) => {
+        .then(response => {
           // redirect to actors show
           this.$router.push(`/actors/${reponse.data.id}`);
         })
-        .catch((error) => {
+        .catch(error => {
           this.errors = error.response.data.errors;
         });
-    },
-  },
+    }
+  }
 };
 </script>

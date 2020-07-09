@@ -23,11 +23,11 @@ const routes = [
   { path: "/login", name: "login", component: Login },
   { path: "/logout", name: "logout", component: Logout },
   { path: "/movies", name: "movies-index", component: MoviesIndex },
-  { path: "/movies", name: "movies-new", component: MoviesNew },
+  { path: "/movies/new", name: "movies-new", component: MoviesNew },
   { path: "/movies/:id", name: "movies-show", component: MoviesShow },
   { path: "/movies/:id/edit", name: "movies-edit", component: MoviesEdit },
   { path: "/actors", name: "actors-index", component: ActorsIndex },
-  { path: "/actors", name: "actors-new", component: ActorsNew },
+  { path: "/actors/new", name: "actors-new", component: ActorsNew },
   { path: "/actors/:id", name: "actors-show", component: ActorsShow },
   { path: "/actors/:id/edit", name: "actors-edit", component: ActorsEdit },
 ];
