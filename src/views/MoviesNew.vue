@@ -54,11 +54,11 @@ export default {
       };
       axios
         .post("/api/movies", params)
-        .then(response => {
+        .then((response) => {
           // redirect to movies show
           this.$router.push(`/movies/${reponse.data.id}`);
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data.errors;
         });
     }

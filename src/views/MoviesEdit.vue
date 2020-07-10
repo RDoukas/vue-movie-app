@@ -39,7 +39,7 @@ export default {
     };
   },
   created: function() {
-    axios.get(`/api/movies/${this.$route.params.id}`).then(response => {
+    axios.get(`/api/movies/${this.$route.params.id}`).then((response) => {
       this.movie = response.data;
       console.log(this.movie);
     });
@@ -54,7 +54,7 @@ export default {
       };
       axios
         .patch(`/api/movies/${this.movie.id}`, params)
-        .then(response => {
+        .then((response) => {
           // redirect to movies show
           this.$router.push(`/movies/${response.data.id}`);
         })
@@ -64,7 +64,7 @@ export default {
     },
     destroyMovie: function() {
       if (confirm("Are you sure you want to delete this movie?")) {
-        axios.delete(`/api/movies/${this.movie.id}`).then(response => {
+        axios.delete(`/api/movies/${this.movie.id}`).then((response) => {
           console.log("Successfully destroyed", response.data);
           this.$router.push("/movies");
         });

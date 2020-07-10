@@ -5,7 +5,7 @@
     <p>Director: {{ movie.director }}</p>
     <p>{{ movie.year }}</p>
 
-    <router-link :to="`/movies/${movie.id}/edit`">Edit</router-link> <br>
+    <router-link :to="`/movies/${movie.id}/edit`">Edit</router-link> <br />
     <button v-on:click="destroyMovie()">Delete</button>
   </div>
 </template>
@@ -15,15 +15,15 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      movie: {}
+      movie: {},
     };
   },
   created: function() {
-    axios.get(`/api/movies/${this.$route.params.id}`).then(response => {
+    axios.get(`/api/movies/${this.$route.params.id}`).then((response) => {
       console.log(response.data);
       this.movie = response.data;
     });
   },
-  methods: {}
+  methods: {},
 };
 </script>
